@@ -16,8 +16,8 @@ const (
 	uintValue                                                      uint64  = 123
 )
 
-func Test_NewParamsByRegexp(t *testing.T) {
-	params := NewTestParams()
+func TestNewParamsByRegexp(t *testing.T) {
+	params := newTestParams()
 	if params[stringName] != stringValue {
 		t.Errorf("%s is %s", stringName, params[stringName])
 	}
@@ -38,23 +38,23 @@ func Test_NewParamsByRegexp(t *testing.T) {
 	}
 }
 
-func Test_Params_GetString_ReturnCorrectParam_UsedName(t *testing.T) {
-	params := NewTestParams()
+func TestParams_GetString_ReturnCorrectParam_UsedName(t *testing.T) {
+	params := newTestParams()
 	stringParam := params.GetString(stringName)
 	if params.GetString(stringName) != stringValue {
 		t.Errorf("%s is %s", stringName, stringParam)
 	}
 }
 
-func Test_Params_GetString_ReturnEmptyString_UnusedName(t *testing.T) {
-	params := NewTestParams()
+func TestParams_GetString_ReturnEmptyString_UnusedName(t *testing.T) {
+	params := newTestParams()
 	if params.GetString(unusedName) != "" {
 		t.Error("Not an empty string, but the name is not used")
 	}
 }
 
-func Test_Params_GetInt_ReturnCorrectParamAndNil_UsedName(t *testing.T) {
-	params := NewTestParams()
+func TestParams_GetInt_ReturnCorrectParamAndNil_UsedName(t *testing.T) {
+	params := newTestParams()
 	param, err := params.GetInt(intName)
 	if param != intValue {
 		t.Errorf("%s is %d", intName, param)
@@ -64,8 +64,8 @@ func Test_Params_GetInt_ReturnCorrectParamAndNil_UsedName(t *testing.T) {
 	}
 }
 
-func Test_Params_GetInt_ReturnZeroAndError_UnusedName(t *testing.T) {
-	params := NewTestParams()
+func TestParams_GetInt_ReturnZeroAndError_UnusedName(t *testing.T) {
+	params := newTestParams()
 	param, err := params.GetInt(unusedName)
 	if param != 0 {
 		t.Errorf("%s is not 0", unusedName)
@@ -75,8 +75,8 @@ func Test_Params_GetInt_ReturnZeroAndError_UnusedName(t *testing.T) {
 	}
 }
 
-func Test_Params_GetUint_ReturnCorrectParamAndNil_UsedName(t *testing.T) {
-	params := NewTestParams()
+func TestParams_GetUint_ReturnCorrectParamAndNil_UsedName(t *testing.T) {
+	params := newTestParams()
 	param, err := params.GetUint(uintName)
 	if param != uintValue {
 		t.Errorf("%s is %d", boolName, param)
@@ -86,8 +86,8 @@ func Test_Params_GetUint_ReturnCorrectParamAndNil_UsedName(t *testing.T) {
 	}
 }
 
-func Test_Params_GetUint_ReturnZeroAndError_UnusedName(t *testing.T) {
-	params := NewTestParams()
+func TestParams_GetUint_ReturnZeroAndError_UnusedName(t *testing.T) {
+	params := newTestParams()
 	param, err := params.GetUint(unusedName)
 	if param != 0 {
 		t.Errorf("%s is %d", unusedName, param)
@@ -97,8 +97,8 @@ func Test_Params_GetUint_ReturnZeroAndError_UnusedName(t *testing.T) {
 	}
 }
 
-func Test_Params_GetBool_ReturnCorrectParamAndNil_UsedName(t *testing.T) {
-	params := NewTestParams()
+func TestParams_GetBool_ReturnCorrectParamAndNil_UsedName(t *testing.T) {
+	params := newTestParams()
 	param, err := params.GetBool(boolName)
 	if param != boolValue {
 		t.Errorf("%s is %t", boolName, param)
@@ -108,8 +108,8 @@ func Test_Params_GetBool_ReturnCorrectParamAndNil_UsedName(t *testing.T) {
 	}
 }
 
-func Test_Params_GetBool_ReturnsFalseAndError_UnusedName(t *testing.T) {
-	params := NewTestParams()
+func TestParams_GetBool_ReturnsFalseAndError_UnusedName(t *testing.T) {
+	params := newTestParams()
 	param, err := params.GetBool(unusedName)
 	if param != false {
 		t.Errorf("%s is %t", unusedName, param)
@@ -119,8 +119,8 @@ func Test_Params_GetBool_ReturnsFalseAndError_UnusedName(t *testing.T) {
 	}
 }
 
-func Test_Params_GetFloat_ReturnCorrectParamAndNil_UsedName(t *testing.T) {
-	params := NewTestParams()
+func TestParams_GetFloat_ReturnCorrectParamAndNil_UsedName(t *testing.T) {
+	params := newTestParams()
 	param, err := params.GetFloat(floatName)
 	if param != floatValue {
 		t.Errorf("%s is %f", boolName, param)
@@ -130,8 +130,8 @@ func Test_Params_GetFloat_ReturnCorrectParamAndNil_UsedName(t *testing.T) {
 	}
 }
 
-func Test_Params_GetFloat_ReturnZeroAndError_UnusedName(t *testing.T) {
-	params := NewTestParams()
+func TestParams_GetFloat_ReturnZeroAndError_UnusedName(t *testing.T) {
+	params := newTestParams()
 	param, err := params.GetFloat(unusedName)
 	if param != 0 {
 		t.Errorf("%s is %f", unusedName, param)
@@ -141,6 +141,6 @@ func Test_Params_GetFloat_ReturnZeroAndError_UnusedName(t *testing.T) {
 	}
 }
 
-func NewTestParams() Params {
+func newTestParams() Params {
 	return NewParamsByRegexp(fmt.Sprintf("%s/%d/%d/%t/%f", stringValue, intValue, uintValue, boolValue, floatValue), regexp.MustCompile(fmt.Sprintf("^(?P<%s>[a-zA-Z]*)/(?P<%s>[+\\-]?\\d*)/(?P<%s>\\d*)/(?P<%s>true|false)/(?P<%s>[+-]?([0-9]*[.])?[0-9]+)$", stringName, intName, uintName, boolName, floatName)))
 }
