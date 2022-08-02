@@ -16,7 +16,7 @@ const (
 	uintValue                                                      uint64  = 123
 )
 
-func Test_NewParamsByRegexp_R(t *testing.T) {
+func Test_NewParamsByRegexp(t *testing.T) {
 	params := NewTestParams()
 	if params[stringName] != stringValue {
 		t.Errorf("%s is %s", stringName, params[stringName])
